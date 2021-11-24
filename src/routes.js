@@ -1,48 +1,79 @@
+/*!
 
-export const Routes = {
-    // pages
-    Presentation: { path: "/" },
-    DashboardOverview: { path: "/dashboard/overview" },
-    Transactions: { path: "/transactions" },
-    Settings: { path: "/settings" },
-    Upgrade: { path: "/upgrade" },
-    BootstrapTables: { path: "/tables/bootstrap-tables" },
-    Billing: { path: "/examples/billing" },
-    Invoice: { path: "/examples/invoice" },
-    Signin: { path: "/examples/sign-in" },
-    Signup: { path: "/examples/sign-up" },
-    ForgotPassword: { path: "/examples/forgot-password" },
-    ResetPassword: { path: "/examples/reset-password" },
-    Lock: { path: "/examples/lock" },
-    NotFound: { path: "/examples/404" },
-    ServerError: { path: "/examples/500" },
+=========================================================
+* Light Bootstrap Dashboard React - v2.0.0
+=========================================================
 
-    // docs
-    DocsOverview: { path: "/documentation/overview" },
-    DocsDownload: { path: "/documentation/download" },
-    DocsQuickStart: { path: "/documentation/quick-start" },
-    DocsLicense: { path: "/documentation/license" },
-    DocsFolderStructure: { path: "/documentation/folder-structure" },
-    DocsBuild: { path: "/documentation/build-tools" },
-    DocsChangelog: { path: "/documentation/changelog" },
+* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
 
-    // components
-    Accordions: { path: "/components/accordions" },
-    Alerts: { path: "/components/alerts" },
-    Badges: { path: "/components/badges" },
-    Widgets: { path: "/widgets" },
-    Breadcrumbs: { path: "/components/breadcrumbs" },
-    Buttons: { path: "/components/buttons" },
-    Forms: { path: "/components/forms" },
-    Modals: { path: "/components/modals" },
-    Navs: { path: "/components/navs" },
-    Navbars: { path: "/components/navbars" },
-    Pagination: { path: "/components/pagination" },
-    Popovers: { path: "/components/popovers" },
-    Progress: { path: "/components/progress" },
-    Tables: { path: "/components/tables" },
-    Tabs: { path: "/components/tabs" },
-    Tooltips: { path: "/components/tooltips" },
-    Toasts: { path: "/components/toasts" },
-    WidgetsComponent: { path: "/components/widgets" }
-};
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+import Dashboard from "views/Dashboard.js";
+import UserProfile from "views/UserProfile.js";
+import TableList from "views/TableList.js";
+import Orders from "views/Orders";
+import Maps from "views/Maps.js";
+import Utility from "views/Utility";
+import Products from "./views/Products";
+import OrderHandle from "./views/OrderHandle";
+
+const dashboardRoutes = [
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    icon: "nc-icon nc-chart-pie-35",
+    component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    path: "/user",
+    name: "Admin Profile",
+    icon: "nc-icon nc-circle-09",
+    component: UserProfile,
+    layout: "/admin",
+  },
+  {
+    path: "/table",
+    name: "Table List",
+    icon: "nc-icon nc-notes",
+    component: TableList,
+    layout: "/admin",
+  },
+  {
+    path: "/product",
+    name: "Products",
+    icon: "nc-icon nc-paper-2",
+    component: Products,
+    layout: "/admin",
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    icon: "nc-icon nc-atom",
+    component: Orders,
+    layout: "/admin",
+  },
+  {
+    path: "/handleOrder",
+    name: "Handle Order",
+    icon: "nc-icon nc-bell-55",
+    component: OrderHandle,
+    layout: "/admin",
+  },
+  {
+    path: "/utility",
+    name: "Utility",
+    icon: "nc-icon nc-notes",
+    component: Utility,
+    layout: "/admin",
+  },
+];
+
+export default dashboardRoutes;
