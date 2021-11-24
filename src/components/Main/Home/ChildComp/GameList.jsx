@@ -14,7 +14,7 @@ const GameList = ({data}) => {
             <Card.Img
                 variant="top"
                 className="cart_image"
-                src={`http://localhost:3001/${data.images}`}
+                src={data.images}
             />
             <Card.Body>
                 <Card.Title className="text-dark bg-white text-center">

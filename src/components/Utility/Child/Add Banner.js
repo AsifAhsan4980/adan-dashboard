@@ -27,7 +27,7 @@ const AddBanner = () => {
         formData.set(e.target.name, value);
         setAddBanner({
             ...addBanner,
-            [e.target.name]: value,
+            [e.target.name]: e.target.value,
         })
     }
 
@@ -46,6 +46,7 @@ const AddBanner = () => {
 
 
     const handleSubmit = e => {
+        console.log('FormData',formData)
         e.preventDefault();
         setAddBanner({
             ...addBanner
@@ -53,10 +54,10 @@ const AddBanner = () => {
         const { token } = userInfo();
         addBanners(token, formData)
             .then(response => {
-                setAddBanner({
-                    firstTitle: '',
-                    secondTitle: '',
-                    success: true,
+                    setAddBanner({
+                        firstTitle: '',
+                        secondTitle: '',
+                        success: true,
                 })
             })
             .catch(err => console.log(err))
@@ -69,7 +70,7 @@ const AddBanner = () => {
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formFile" className="mb-3">
                             <Form.Label>Default file input example</Form.Label>
-                            <Form.Control type="file" name="image" onChange={handleChange} />
+                            <Form.Control type="file" name="image"  onChange={handleChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formGridAddress1">
                             <Form.Label>First Title</Form.Label>

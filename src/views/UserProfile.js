@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
 // react-bootstrap components
 import {
@@ -9,52 +9,71 @@ import {
     Row,
     Col, Modal,
 } from "react-bootstrap";
-import { getOneUser } from "../Api/user";
-import { adminProfileUpdate } from "../Api/userAdmin";
-import { userInfo } from '../utils/auth';
+import {adminProfile, adminProfileUpdate} from "../Api/userAdmin";
+import {addProductss} from "../Api/products";
+import {isAuthenticated} from "../utils/auth";
 
 function User() {
+
+
     const [remove, setRemove] = useState(false);
+
     const handleCloseRemove = () => setRemove(false);
     const handleShowRemove = () => setRemove(true);
-    const { token, id } = userInfo();
+
 
     const [admin, setAdmin] = useState({
         username: '',
         email: '',
         password: '',
-        phonenumber: '',
-        formData: '',
+        // image: '',
+        phonenumber: ''
     })
-
-    const { username, email, password, phonenumber, formData } = admin
+    const {username, email, password, phonenumber, image} = admin
+    const handleChange = (e, index) => {
+        setAdmin({
+            ...admin,
+            [e.target.name]: e.target.value,
+        })
+    }
 
     useEffect(() => {
-        getOneUser(token, id)
-            .then(response => setAdmin(response.data))
-            .then(response=>setAdmin({formData: new FormData()}))
+        adminProfile()
+            .then((res) => {
+                let allData = res.data
+                setAdmin(allData)
+                localStorage.setItem('alldata', JSON.stringify(allData))
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
     }, []);
 
     useEffect(() => {
-        setAdmin({
-            ...admin,
-            formData: new FormData()
-        })
-    }, [])
-
-    const handleChange = (e) => {
-        const value = e.target.name === 'image' ? e.target.files[0] : e.target.value;
-        formData.set(e.target.name, value);
-        setAdmin({
-            ...admin,
-            [e.target.name]: value,
-        })
-        
-    }
+        const data = localStorage.getItem('alldata')
+        if (data) {
+            setAdmin(JSON.parse(data))
+        }
+    }, []);
 
     const handleSubmit = e => {
         e.preventDefault();
-        adminProfileUpdate(token, id, formData)
+        setAdmin({...admin})
+        console.log(admin)
+        adminProfileUpdate({username, email, password, image, phonenumber })
+            .then(response => {
+                isAuthenticated(response.data.token, () => {
+                    setAdmin({
+                        username: '',
+                        email: '',
+                        password: '',
+                        image: '',
+                        phonenumber: '',
+                        success: true,
+                    })
+                })
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -70,15 +89,15 @@ function User() {
                                             <Form.Group as={Col} controlId="formGridEmail">
                                                 <Form.Label>Full Name</Form.Label>
                                                 <Form.Control type="username" name='username'
-                                                    placeholder="Enter Full Name" value={username}
-                                                    onChange={handleChange} />
+                                                              placeholder="Enter Full Name" value={username}
+                                                              onChange={handleChange}/>
                                             </Form.Group>
                                         </Col>
                                         <Col>
                                             <Form.Group as={Col} controlId="formGridEmail">
                                                 <Form.Label>Email</Form.Label>
                                                 <Form.Control type="email" name='email' placeholder="Enter Email"
-                                                    value={email} onChange={handleChange} />
+                                                              value={email} onChange={handleChange}/>
                                             </Form.Group>
                                         </Col>
                                     </Row>
@@ -87,14 +106,14 @@ function User() {
                                             <Form.Group as={Col} controlId="formGridEmail">
                                                 <Form.Label>Phone Number</Form.Label>
                                                 <Form.Control type="phonenumber" name='phonenumber'
-                                                    placeholder="Enter Phone Number" value={phonenumber}
-                                                    onChange={handleChange} />
+                                                              placeholder="Enter Phone Number" value={phonenumber}
+                                                              onChange={handleChange}/>
                                             </Form.Group>
                                         </Col>
                                         <Col>
                                             <Form.Group controlId="formFile" className="mb-3">
                                                 <Form.Label>Image</Form.Label>
-                                                <Form.Control type="file" name="image" onChange={handleChange} />
+                                                <Form.Control type="file" value={image} name="file"/>
                                             </Form.Group>
                                         </Col>
                                     </Row>
@@ -103,26 +122,26 @@ function User() {
                                             <Form.Group as={Col} controlId="formGridEmail">
                                                 <Form.Label>Password</Form.Label>
                                                 <Form.Control type="password" name='password'
-                                                    placeholder="Enter password" value={password}
-                                                    onChange={handleChange} />
+                                                              placeholder="Enter password" value={password}
+                                                              onChange={handleChange}/>
                                             </Form.Group>
                                         </Col>
                                         <Col>
                                             <Form.Group as={Col} controlId="formGridEmail">
                                                 <Form.Label>Confirm Password</Form.Label>
                                                 <Form.Control type="password" name='password'
-                                                    placeholder="Enter password" value={password}
-                                                    onChange={handleChange} />
+                                                              placeholder="Enter password" value={password}
+                                                              onChange={handleChange}/>
                                             </Form.Group>
                                         </Col>
                                     </Row>
                                     <div className="d-flex justify-content-center">
                                         <div>
                                             <Button className="m-4" onClick={handleShowRemove}
-                                                variant="outline-primary">Delete</Button>
+                                                    variant="outline-primary">Delete</Button>
                                         </div>
                                         <div>
-                                            <Button type="submit" className="m-4" variant="outline-primary">Update</Button>
+                                            <Button type="submit" className="m-4"   variant="outline-primary">Update</Button>
                                         </div>
                                     </div>
                                 </Card.Body>
@@ -151,10 +170,15 @@ function User() {
                                         />
                                         {/*<h5 className="title">{admin.username}</h5>*/}
                                     </a>
-                                    <p className="description">Hi {username}</p>
+                                    <p className="description">michael24</p>
                                 </div>
+                                <p className="description text-center">
+                                    "Lamborghini Mercy <br/>
+                                    Your chick she so thirsty <br/>
+                                    I'm in that two seat Lambo"
+                                </p>
                             </Card.Body>
-                            <hr />
+                            <hr/>
                             <div className="button-container mr-auto ml-auto">
                                 <Button
                                     className="btn-simple btn-icon"
@@ -162,7 +186,7 @@ function User() {
                                     onClick={(e) => e.preventDefault()}
                                     variant="link"
                                 >
-                                    <i className="fab fa-facebook-square" />
+                                    <i className="fab fa-facebook-square"/>
                                 </Button>
                                 <Button
                                     className="btn-simple btn-icon"
@@ -170,7 +194,7 @@ function User() {
                                     onClick={(e) => e.preventDefault()}
                                     variant="link"
                                 >
-                                    <i className="fab fa-twitter" />
+                                    <i className="fab fa-twitter"/>
                                 </Button>
                                 <Button
                                     className="btn-simple btn-icon"
@@ -178,7 +202,7 @@ function User() {
                                     onClick={(e) => e.preventDefault()}
                                     variant="link"
                                 >
-                                    <i className="fab fa-google-plus-square" />
+                                    <i className="fab fa-google-plus-square"/>
                                 </Button>
                             </div>
                         </Card>

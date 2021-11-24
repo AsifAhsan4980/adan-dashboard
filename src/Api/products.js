@@ -1,18 +1,8 @@
 import axios from "axios";
 
-export const addProductss = (id,addProduct) => {
+export const addProductss = (addProduct) => {
     const token = JSON.parse(localStorage.getItem('jwt'))
-    return axios.put(`http://localhost:3001/admin/product/add/${id}`, addProduct, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    })
-};
-
-export const addProductImage = (addProduct) => {
-    const token = JSON.parse(localStorage.getItem('jwt'))
-    return axios.post("http://localhost:3001/admin/product/addProductImage", addProduct, {
+    return axios.post("http://localhost:3001/admin/product", addProduct, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

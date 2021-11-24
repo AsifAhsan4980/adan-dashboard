@@ -17,7 +17,6 @@ const GameCart = () => {
                 console.log(err.response);
             });
     }, []);
-    console.log(product)
 
     return (
         <>
