@@ -1,5 +1,5 @@
 import jwt_decode from 'jwt-decode';
-import {createContext, useReducer} from "react";
+import {createContext, useReducer} from "react"
 
 export const authenticate = (token, cb) => {
     if (typeof window !== 'undefined') {
@@ -10,15 +10,15 @@ export const authenticate = (token, cb) => {
 
 export const isAuthenticated = () => {
     if (typeof window === 'undefined') return false;
-    if (localStorage.getItem('jwt')) { 
-        const { exp } = jwt_decode(JSON.parse(localStorage.getItem('jwt'))); 
+    if (localStorage.getItem('jwt')) {
+        const { exp } = jwt_decode(JSON.parse(localStorage.getItem('jwt')));
         if((new Date()).getTime() < exp * 1000){
             return true;
         }else{
             localStorage.removeItem('jwt');
             return false
         }
-        
+
     } else return false;
 }
 
@@ -61,7 +61,7 @@ const AuthReducer = (state, action) => {
                 user: null,
             };
         default:
-            return state;
+            return state
     }
 };
 

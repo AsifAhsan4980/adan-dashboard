@@ -1,11 +1,7 @@
 import {useState} from 'react';
 import {Link, Redirect} from 'react-router-dom';
-import {login} from '../../Api/auth'
-import {authenticate} from '../../utils/auth';
-import {
-    AiOutlineGoogle,
-    AiFillFacebook,
-} from "react-icons/ai";
+import {login} from '../Api/Auth'
+import {authenticate} from '../Utils/Auth';
 
 import './User.css';
 import {Form} from "react-bootstrap";
@@ -45,9 +41,9 @@ const Login = () => {
 
     const LoginForm = () => (
         <>
-            <div class="mx-auto" data-v-791b20d9>
+            <div className="mx-auto" data-v-791b20d9>
                 <div data-v-791b20d9>
-                    <section class="flex flex-col md:flex-row items-center md:justify-center py-10 md:py-6" data-v-791b20d9>
+                    <section className="flex flex-col md:flex-row items-center md:justify-center py-10 md:py-6" data-v-791b20d9>
                         <div class="bg-white w-full md:w-[450px] px-6 lg:px-8 flex items-start py-12 justify-center relative flex-shrink">
                             <div class="w-full h-full">
                                 <h1 class="text-xl md:text-2xl font-bold leading-tight">
@@ -56,8 +52,8 @@ const Login = () => {
                                 <Form onSubmit={handleSubmit} method="post" class="mt-6">
                                     <div><label class="block text-gray-700">Email Address</label>
                                         <input type="email" name="email" className="form-control" placeholder="Enter Email" value={email} required onChange={handleChange} autofocus="autofocus"
-                                        autoComplete={true}
-                                        class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-primary-500 focus:bg-white focus:outline-none"/>
+                                               autoComplete={true}
+                                               class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-primary-500 focus:bg-white focus:outline-none"/>
                                     </div>
 
                                     <div class="mt-4"><label class="block text-gray-700">Password</label> <input
@@ -71,36 +67,37 @@ const Login = () => {
           px-4 py-3 mt-6">
                                         Log In
                                     </button>
+
                                 </Form>
                                 <hr class="my-6 border-gray-300 w-full"/>
 
-                                    <p class="mt-5 text-center">
-                                        Need an account?
-                                        <Link to='registration'
-                                           class="text-primary-500 hover:text-primary-700 font-semibold">Create an
-                                            account</Link>
-                                    </p>
+                                <p class="mt-5 text-center">
+                                    Need an account?
+                                    <Link to='registration'
+                                          class="text-primary-500 hover:text-primary-700 font-semibold">Create an
+                                        account</Link>
+                                </p>
                             </div>
                         </div>
                     </section>
                 </div>
             </div>
         </>
-);
+    );
 
-const showSuccess = () =>
+    const showSuccess = () =>
     {
         if (success) return (
             <Redirect to='/admin'/>
         )
     }
 
-return (
-    <div>
-        {showSuccess()}
-        {LoginForm()}
-    </div>
-);
+    return (
+        <div>
+            {showSuccess()}
+            {LoginForm()}
+        </div>
+    );
 }
 
 export default Login;

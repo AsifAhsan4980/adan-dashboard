@@ -16,15 +16,22 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-import UserProfile from "views/UserProfile.js";
-import TableList from "views/TableList.js";
-import Orders from "views/Orders";
-import Maps from "views/Maps.js";
-import Utility from "views/Utility";
-import Products from "./views/Products";
-import OrderHandle from "./views/OrderHandle";
+import UpdateDailyAdan from "./views/UpdateDailyAdan";
+import JummahData from "./views/JummahData";
+import Ramadan from "./views/Ramadan";
+import Announcement from "./views/Announcement";
+import Event from './views/event'
+
 
 const dashboardRoutes = [
+  // {
+  //   upgrade: true,
+  //   path: "/upgrade",
+  //   name: "Upgrade to PRO",
+  //   icon: "nc-icon nc-alien-33",
+  //   component: Upgrade,
+  //   layout: "/admin",
+  // },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -33,47 +40,47 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/user",
-    name: "Admin Profile",
+    path: "/dailyAdan",
+    name:"Daily Adan",
     icon: "nc-icon nc-circle-09",
-    component: UserProfile,
+    component: UpdateDailyAdan,
     layout: "/admin",
   },
   {
-    path: "/table",
-    name: "Table List",
+    path: "/Jummah",
+    name: "Jummah",
     icon: "nc-icon nc-notes",
-    component: TableList,
+    component: JummahData,
     layout: "/admin",
   },
   {
-    path: "/product",
-    name: "Products",
+    path: "/ramadan",
+    name: "Ramadan",
     icon: "nc-icon nc-paper-2",
-    component: Products,
+    component: Ramadan,
     layout: "/admin",
   },
   {
-    path: "/orders",
-    name: "Orders",
+    path: "/announcement",
+    name: "Announcement",
     icon: "nc-icon nc-atom",
-    component: Orders,
+    component: Announcement,
     layout: "/admin",
   },
   {
-    path: "/handleOrder",
-    name: "Handle Order",
-    icon: "nc-icon nc-bell-55",
-    component: OrderHandle,
+    path: "/event",
+    name: "Event",
+    icon: "nc-icon nc-pin-3",
+    component: Event,
     layout: "/admin",
   },
-  {
-    path: "/utility",
-    name: "Utility",
-    icon: "nc-icon nc-notes",
-    component: Utility,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/notifications",
+  //   name: "Notifications",
+  //   icon: "nc-icon nc-bell-55",
+  //   component: Notifications,
+  //   layout: "/admin",
+  // },
 ];
 
 export default dashboardRoutes;
